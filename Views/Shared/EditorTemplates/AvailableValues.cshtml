@@ -1,0 +1,12 @@
+﻿@using Kendo.Mvc.UI
+
+@(Html.Kendo().DropDownList()
+.Name("Unit")
+.DataSource(d => d.Read(r => r.Action("GetTypes", "Home").Data("getParentID()")))
+.DataValueField("Value")
+.DataTextField("Text")
+.Events(e =>
+{
+    e.Select("onSelect");
+})
+)

@@ -1,0 +1,17 @@
+﻿@using System.Collections
+@using Kendo.Mvc.UI;
+@using RiskNet.Admin.Controllers;
+
+@model CategoryViewModel
+
+@(Html.Kendo().DropDownListFor(m => m)
+        .DataValueField("CategoryID")
+        .DataTextField("CategoryName")
+        .BindTo((System.Collections.IEnumerable)ViewData["categories"])
+)
+
+@*@(Html.Kendo().DropDownList()
+        .BindTo((IEnumerable) list  )
+    .OptionLabel("- Select Company - ")
+    .DataValueField("ProductID")
+    .DataTextField("ProductName").Name("ProductID"))*@

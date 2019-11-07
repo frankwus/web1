@@ -1,0 +1,103 @@
+﻿ 
+body {
+background:#ffffff;
+font-family:Arial,sans-serif !important;}
+  
+.mr-bt-15 {margin-bottom:15px;}
+
+.print-style h1 {font-size:20px;}
+
+.print-style .panel {
+border:solid 1px #ddd;
+margin-bottom:25px;
+height:auto;
+clear:both;}
+
+.print-style .panel .panel-heading  {
+color: #333;
+padding:0px 15px;
+height:40px;
+text-decoration:none;
+margin:0;
+padding:0;
+background-color: #f5f5f5 !important;
+-webkit-print-color-adjust: exact; }
+
+.print-style .panel .panel-heading .panel-title {
+margin:0;
+padding:0;
+color: #333;}
+
+.print-style .panel .panel-heading .panel-title a {
+text-decoration:none;
+height:100%;
+display:block;
+margin:0;
+padding:12px 0 0 15px;
+color: #333;
+font-size:14px;}
+
+.print-style .panel .panel-body {
+padding: 15px 20px;
+height:auto;
+clear:both;
+border-top:solid 1px #ddd;}
+
+.print-style .panel .panel-body [class*=' col-'] { float:left; }
+
+.print-style .panel .panel-body .col-lg-4 { width:33.33%; }
+
+.print-style .panel .panel-body .col-lg-8 { width:66.66%; }
+
+.print-style .panel .panel-body .form-group {margin-bottom:20px;}
+
+.print-style .panel .panel-body  .form-group label {
+font-size: 13px;
+color: #808080;
+margin-bottom:5px;}
+
+.print-style .panel .panel-body .form-group .read-only-wrapper span {
+font-weight:bold;
+font-size:14px;}
+
+.clearfix {clear:both;}
+
+.print-style  table {
+font-size:14px;
+border:1px solid #ddd;
+width:100%;}
+
+.print-style  table tr th {
+text-align:left;
+padding: 8px;
+background-color: #eee !important;
+ -webkit-print-color-adjust: exact; }
+
+.print-style  table tr td {
+text-align:left;
+border-top: 1px solid #ddd;
+padding: 8px;}
+
+.print-style  table tr td .form-control  {background:transparent;border:none;}
+
+.print-style  table tr td .totalVolumeWrap  label {
+display:block;
+font-size:13px;
+margin-bottom:5px;}
+
+.print-style  table tr td .totalVolumeWrap .form-control {
+height: 30px;
+background-color: #eee;
+border: 1px solid #ccc;
+padding:0 5px;
+ font-weight:700;}
+
+.print-style  .btn{display:none;}
+
+.unitname-wrapper {
+margin-bottom:15px;
+font-size:14px;}
+
+.unitname-wrapper span {font-weight:700;}
+
+.print-style .panel .panel-heading .panel-title a span.mr-lt-10 {margin-left: 10px;}

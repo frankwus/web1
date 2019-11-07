@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Custom>
+  <PropertyType Name="Pressure" Value="psia,bara" SelectedValue="psia"></PropertyType>
+  <PropertyType Name="Temperature" Value="degF,degC" SelectedValue="degF"></PropertyType>
+  <PropertyType Name="Viscosity" Value="cP" SelectedValue="cP"></PropertyType>
+  <PropertyType Name="Density" Value="lb/ft3,kg/m3" SelectedValue="lb/ft3"></PropertyType>
+</Custom>

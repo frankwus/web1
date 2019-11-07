@@ -1,0 +1,129 @@
+﻿.top5 {
+    margin-top: 25px;
+}
+
+.inner{
+  border-right: 1px solid #B3B1B1;
+  padding: 10px 15px;
+}
+
+.inner-end{
+  padding: 10px 15px;
+}
+
+.inner-header{
+  background: aliceblue;
+  border-right: 1px solid #B3B1B1;
+  padding: 10px 15px;
+}
+
+.inner-end-header{
+  background: aliceblue;
+  padding: 10px 15px;
+  background: aliceblue;
+}
+
+.flx {
+  display: flex;
+}
+
+.alignCenter {
+  display: table;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus {
+    background-color: #f2f2f2 !important;
+}
+
+.position-right {
+    padding-left: 43px;
+    margin-top: 20px;
+}
+
+/*#btnSaveNotification {
+    margin-left: 0px;
+    margin-top:-10px
+}*/
+
+/*input[type=checkbox].master {
+    width: 80px;
+    height: 21px;
+    top: 5px;
+}
+
+input[type=checkbox].child, #checkEmailFileUploaded, #checkSMSFileUploaded {
+    margin-left: 60%;
+}*/
+
+.mlm {
+    margin-left: 36px !important;
+}
+
+.mll {
+    margin-left : 200px !important;
+}
+
+.mbs {
+    margin-bottom: 10px;
+}
+
+.prs {
+    padding-right : 10px;
+}
+
+
+.pts {
+    padding-top: 3px;
+}
+
+.ptm {
+    padding-top: 8px;
+}
+
+.height-class {
+    
+    font-weight:bold;
+}
+
+.row-border {
+    border:1px solid gray;
+    border-bottom:none;
+}
+.row-border .row {
+    border-bottom:1px solid gray;
+}
+
+.bold-font {
+    font-weight:bold;
+}
+
+.hideSMS {
+    display:none;
+}
+
+/*button.multiselect {
+    max-width: 400px;
+      white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+    display: inline-block;
+}
+
+
+   button.multiselect :hover {
+        color:#332;
+    }*/
+.fa-large {
+    font-size: large;
+}
+
+.mtm {
+    margin-top : 25px;
+}
+
+.mts {
+    margin-top : 10px;
+}

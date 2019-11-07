@@ -1,0 +1,96 @@
+﻿/*
+		 * CSS3 Treevew. No JavaScript
+	     * @version 1.0
+		 * @author Martin Ivanov
+		 * @url developer's website: http://wemakesites.net/
+	     * @url developer's twitter: https://twitter.com/#!/wemakesitesnet
+		 * @url developer's blog http://acidmartin.wordpress.com/
+		 **/
+.container .container .css-treeview ul,
+.container .css-treeview li {    
+    padding: 0 0 3px 0;
+    margin: 0;
+    list-style: none;
+    background-image: none;
+}
+
+.container .css-treeview input {
+    position: absolute;
+    opacity: 0;
+}
+
+.container .css-treeview {
+    font: normal 11px "Segoe UI", Arial, Sans-serif;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+    .container .css-treeview a {
+        color: #00f;
+        text-decoration: none;
+    }
+
+        .container .css-treeview a:hover {
+            text-decoration: underline;
+        }
+        
+    .container .css-treeview input ~ ul {
+        display: none;
+    }
+
+    .container .css-treeview label,
+    .container .css-treeview label::before {
+        cursor: pointer;
+        background: url("icons.png") no-repeat;
+    }
+
+    .container .css-treeview input:disabled + label {
+        cursor: default;
+        opacity: .6;
+    }
+
+    .container .css-treeview input:checked:not(:disabled) ~ ul {
+        display: block;
+    }
+
+        .container .css-treeview label,
+        .container .css-treeview a,
+        .container .css-treeview label::before {
+            display: inline-block;
+            height: 16px;
+            line-height: 16px;
+            , vertical-align: middle;
+        }
+
+    .container .css-treeview label {
+        background-position: 18px 0;
+    }
+
+        .container .css-treeview label::before {
+            content: "";
+            width: 16px;
+            vertical-align: middle;
+            background-position: 0 -33px;
+        }
+
+    .container .css-treeview input:checked + label::before {
+        background-position: 0 -17px;
+    }
+
+/* webkit adjacent element selector bugfix */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .container .css-treeview {
+        -webkit-animation: webkit-adjacent-element-selector-bugfix infinite 1s;
+    }
+
+    @-webkit-keyframes webkit-adjacent-element-selector-bugfix {
+        from {
+            padding: 0;
+        }
+
+        to {
+            padding: 0;
+        }
+    }
+}
