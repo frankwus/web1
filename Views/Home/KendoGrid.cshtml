@@ -34,7 +34,7 @@
                                 ProductID: { editable: false, nullable: true },
                                 ProductName: { validation: { required: true } },
                                 Category: { defaultValue: { CategoryID: 1, CategoryName: "Beverages" } },
-                                UnitPrice: { type: "date", validation: { required: true } }
+                                UnitPrice: { type: "date", validation: { required: true  } }
                             }
                         }
                     }
@@ -48,7 +48,7 @@
                     columns: [
                         { field: "ProductName", title: "Product Name" },
                         { field: "Category", title: "Category", width: "180px", editor: categoryDropDownEditor, template: "#=CategoryName#" },
-                        { field: "UnitPrice", title: "Unit Price", format: "{0:MM-dd-yyyy}", width: "130px" },
+                        { field: "UnitPrice", title: "Unit Price",  format:"{0:MM-dd-yyyy}" , width: "130px" },
                         { command: "destroy", title: " ", width: "150px" }],
                     editable: true
                 });
@@ -71,42 +71,41 @@
             }
 
             var products = [{
-                ProductID: 1,
-                ProductName: "Chai",
-                SupplierID: 1,
-                CategoryID: 1,
-                QuantityPerUnit: "10 boxes x 20 bags",
-                UnitPrice: "1/1/2019",
-                UnitsInStock: 39,
-                UnitsOnOrder: 0,
-                ReorderLevel: 10,
-                Discontinued: false,
-                Category: {
-                    CategoryID: 1,
-                    CategoryName: "Beverages",
-                    Description: "Soft drinks, coffees, teas, beers, and ales"
-                }
-            }, {
-                ProductID: 2,
-                ProductName: "Chang",
-                SupplierID: 1,
-                CategoryID: 1,
-                QuantityPerUnit: "24 - 12 oz bottles",
-                UnitPrice: "1/1/2019",
-                UnitsInStock: 17,
-                UnitsOnOrder: 40,
-                ReorderLevel: 25,
-                Discontinued: false,
-                Category: {
-                    CategoryID: 1,
-                    CategoryName: "Beverages",
-                    Description: "Soft drinks, coffees, teas, beers, and ales"
-                }
-            }];
+    ProductID : 1,
+    ProductName : "Chai",
+    SupplierID : 1,
+    CategoryID : 1,
+    QuantityPerUnit : "10 boxes x 20 bags",
+    UnitPrice : "1/1/2019",
+    UnitsInStock : 39,
+    UnitsOnOrder : 0,
+    ReorderLevel : 10,
+    Discontinued : false,
+    Category : {
+        CategoryID : 1,
+        CategoryName : "Beverages",
+        Description : "Soft drinks, coffees, teas, beers, and ales"
+    }
+}, {
+    ProductID : 2,
+    ProductName : "Chang",
+    SupplierID : 1,
+    CategoryID : 1,
+    QuantityPerUnit : "24 - 12 oz bottles",
+    UnitPrice : "1/1/2019",
+    UnitsInStock : 17,
+    UnitsOnOrder : 40,
+    ReorderLevel : 25,
+    Discontinued : false,
+    Category : {
+        CategoryID : 1,
+        CategoryName : "Beverages",
+        Description : "Soft drinks, coffees, teas, beers, and ales"
+    }
+}];
         </script>
     </div>
 
 
 </body>
 </html>
-

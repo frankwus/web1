@@ -40,6 +40,11 @@ namespace RiskNet.Admin.Controllers {
             this.test(); 
             return View(); 
         }
+
+        [HttpPost]
+        public ActionResult Save([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<ProductViewModel> products) {
+            return null;
+        }
         void test() {
             MyDb db = new MyDb();
             MySimpleClass c = new MySimpleClass();
@@ -63,25 +68,25 @@ namespace RiskNet.Admin.Controllers {
             object val = null; 
             foreach (System.Reflection.PropertyInfo pi in o.GetType().GetProperties()) {
                 val = pi.GetValue(o);
-                s += pi.Name + " " + pi.PropertyType.Name + " " + (val == null ? "null" : val.ToString());
+                s += o.GetType().Name+" "+ pi.Name + " " + pi.PropertyType.Name + " " + (val == null ? "null" : val.ToString());
             }
             return "___"+s; 
         }
         public ActionResult EditingCustom_Read([DataSourceRequest] DataSourceRequest request) {
-            return Json(Read().ToDataSourceResult(request));
+            return Json(Read().ToDataSourceResult(request), JsonRequestBehavior.AllowGet );
         }
         public IList<ProductViewModel> Read() {
             List<ProductViewModel> list = new List<ProductViewModel>();
             ProductViewModel p = new ProductViewModel();
             p.ProductID = 1;
-            p.ProductName = "test";
+            p.ProductName = "Chai";
             p.Category = new CategoryViewModel();
             p.Category.CategoryID = 1;
             p.Category.CategoryName = "cat";
             list.Add(p);
             p = new ProductViewModel();
             p.ProductID = 2;
-            p.ProductName = "test2";
+            p.ProductName = "Chang";
             p.Category = new CategoryViewModel();
             p.Category.CategoryID = 2;
             p.Category.CategoryName = "cat2";
