@@ -1,0 +1,14 @@
+<form novalidate #myForm="ngForm">
+  <kendo-grid [data]="gridData"
+              [height]="533">
+    <kendo-grid-column field="ProductID" title="Product Name">
+
+    </kendo-grid-column>
+
+    <kendo-grid-command-column title="command" width="220">
+      <ng-template kendoGridCellTemplate let-isNew="isNew">
+        <button kendoGridEditCommand type="button" [primary]="true">Edit</button>
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>
+</form>

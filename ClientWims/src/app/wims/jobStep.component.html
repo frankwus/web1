@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate #f>
+  <table>
+    <tr>
+      <td><textarea formControlName="Description" ></textarea></td>
+      <td><input formControlName="Warning" /></td>
+      <td><input formControlName="Caution" /></td>
+      <td><input formControlName="Note" /></td>
+    </tr>
+  </table>
+  <button type="submit">Save</button>
+
+  <!--<textarea id="description" #input>
+
+  </textarea>-->
+
+</form>

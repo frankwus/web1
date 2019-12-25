@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<!--<script src="http://localhost/irma/js/jquery.js"></script>-->
+<!--<script src="http://localhost/emoc/js/ckeditor.js"></script>-->
+<head>
+  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
+  <link type="text/css" rel="stylesheet" href="http://localhost/web1/scripts/angular/styles.css">
+
+  <style>
+    example-tree-progress-bar {
+      margin-left: 30px;
+    }
+  </style>
+
+  <meta charset="utf-8">
+  <title>AngularMaterialCourse</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono:300" rel="stylesheet">
+
+</head>
+
+<body>
+
+<app-root></app-root>
+
+</body>
+</html>
+<script>
+  //$(document).ready(function () {
+
+  //  ConfigSave()
+
+  //});
+  function ConfigSave() {
+    document.onkeydown = function () {
+      var k = event.keyCode
+      if (!event.ctrlKey)
+        return
+      console.log(k + ' ' + event )
+      if (k == 83 || k == 81 || k == 87) {
+        event.cancelBubble = true;
+        event.returnValue = false;
+        event.keyCode = false;
+        if (k == 83 ) {
+          $('[type=Submit]').trigger('click')
+        }
+
+        return false;
+      }
+    }
+  }
+
+  //(function(){
+  //  document.onkeydown = function () {
+  //    alert()
+  //    var k = event.keyCode
+  //    if (k == 27)
+  //      WinClose()
+  //    if (!event.ctrlKey)
+  //      return
+  //    if (k == 83 ) {
+  //      event.cancelBubble = true;
+  //      event.returnValue = false;
+  //      event.keyCode = false;
+  //      onSubmit()
+  //      return false;
+  //    }
+  //  }
+  //} )()
+</script>

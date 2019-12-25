@@ -6,11 +6,11 @@
 @using System.Web;
 @ViewBag.test;
 
-    <link rel="stylesheet" href="~/Administration/Content/kendo.bootstrap.min.css">
-    <link rel="stylesheet" href="~/Administration/Content/kendo.common-bootstrap.min.css">
-    <link rel="stylesheet" href="~/Administration/Content/bootstarp/bootstrap.min.css">
-    <link href="~/Administration/Content/common-style.min.css" rel="stylesheet" type="text/css">
-    <link href="~/Administration/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="~/Administration/Content/kendo.bootstrap.min.css">
+<link rel="stylesheet" href="~/Administration/Content/kendo.common-bootstrap.min.css">
+<link rel="stylesheet" href="~/Administration/Content/bootstarp/bootstrap.min.css">
+<link href="~/Administration/Content/common-style.min.css" rel="stylesheet" type="text/css">
+<link href="~/Administration/Content/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 
 <script src="~/Scripts/jquery-1.7.1.min.js"></script>
@@ -35,39 +35,49 @@
     .Name("grid")
     .Columns(columns => {
         columns.Bound(p => p.ProductName);
-        columns.Bound(p => p.Category).ClientTemplate("#=Category.CategoryName#"); 
-        columns.Bound(p => p.CategoryID).ClientTemplate("#=CategoryName#"); 
-        columns.Command(command => command.Destroy()).Width(150);
-    })
-    .ToolBar(toolBar => {
-        toolBar.Create();
-        toolBar.Save();
-    })
-    .Editable(editable => editable.Mode(GridEditMode.InCell))
-    .Pageable()
-    .Sortable()
-    .Scrollable()
-    .HtmlAttributes(new { style = "height:550px;" })
-    .DataSource(dataSource => dataSource
-    .Ajax()
-    .Batch(true)
-    .ServerOperation(false)
-    .Events(events => events.Error("error_handler"))
-    .Model(model => {
-        model.Id(p => p.ProductID);
-        model.Field(p => p.ProductID).Editable(false);
-    })
-    .PageSize(20)
-    .Read(read => read.Action("EditingCustom_Read", "home"))
-    .Create(create => create.Action("EditingCustom_Create", "Grid"))
-    .Update(update => update.Action("EditingCustom_Update", "Grid"))
-    .Destroy(destroy => destroy.Action("EditingCustom_Destroy", "Grid"))
-    )
+        columns.Template(@<text>test</text>).ClientTemplate("<a onclick=test('#=ProductName#')  >test</a>");
+columns.Template(@<text>test</text>).ClientTemplate("#=test( )#");
+columns.Command(command => command.Destroy()).Width(150);
+})
+.ToolBar(toolBar => {
+toolBar.Create();
+toolBar.Save();
+})
+.Editable(editable => editable.Mode(GridEditMode.InCell))
+.Pageable()
+.Sortable()
+.Scrollable()
+.HtmlAttributes(new { style = "height:550px;" })
+.DataSource(dataSource => dataSource
+.Ajax()
+.Batch(true)
+.ServerOperation(false)
+.Events(events => events.Error("error_handler"))
+.Model(model => {
+model.Id(p => p.ProductID);
+model.Field(p => p.ProductID).Editable(false);
+})
+.PageSize(20)
+.Read(read => read.Action("EditingCustom_Read", "home"))
+.Create(create => create.Action("EditingCustom_Create", "Grid"))
+.Update(update => update.Action("EditingCustom_Update", "Grid"))
+.Destroy(destroy => destroy.Action("EditingCustom_Destroy", "Grid"))
+)
 )
 
 <script type="text/javascript">
+    alert()
+    function test(id, c ) {
+   console.log(id +'__'+c )
+    }
     function error_handler(e) {
         if (e.errors) {
+            @{
+                for (int i=0; i<5;i++) {
+                  <text> var field =</text>  @i <text>;</text>
+                }
+
+            }
             var message = "Errors:\n";
             $.each(e.errors, function (key, value) {
                 if ('errors' in value) {

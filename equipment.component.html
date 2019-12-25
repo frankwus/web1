@@ -1,0 +1,80 @@
+<app-list-management>
+  <div class="grid-container">
+
+    <h3>Equipment / Tools</h3>
+
+    <form novalidate #rigForm="ngForm">
+      <kendo-grid [data]="gridData" [height]="550"
+                  [pageSize]="state.take" [skip]="state.skip"
+                  [sort]="state.sort"
+                  [filter]="state.filter"
+                  [sortable]="true"
+                  [pageable]="true" [filterable]="true"                
+                  (dataStateChange)="dataStateChange($event)"
+                  (add)="addHandler($event,rigForm)"
+                  (remove)="removeHandler($event.dataItem)"
+                  (save)="saveHandler($event)" (cancel)="cancelHandler($event)"
+                  (edit)="editHandler($event)">
+
+        <ng-template kendoGridToolbarTemplate>
+          <button kendoGridAddCommand type="button">Add New Equipment</button>
+        </ng-template>
+
+        <!-- ID -->
+        <kendo-grid-column field="id" title="ID" width="40"></kendo-grid-column>
+
+        <!-- NAME / English version -->
+        <kendo-grid-column field="english" title="Name" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.english" name="english" class="k-textbox" required />
+          </ng-template>
+        </kendo-grid-column>
+
+        <!-- Portuguese -->
+        <kendo-grid-column field="portuguese" title="Portuguese" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.portuguese" name="portuguese" class="k-textbox" required />
+          </ng-template>
+        </kendo-grid-column>
+
+        <!-- Bahasa -->
+        <kendo-grid-column field="bahasa" title="Bahasa" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.bahasa" name="bahasa" class="k-textbox" required />
+          </ng-template>
+        </kendo-grid-column>
+
+        <!-- Arabic -->
+        <kendo-grid-column field="arabic" title="Arabic" width="250">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input [(ngModel)]="dataItem.arabic" name="arabic" class="k-textbox" required />
+          </ng-template>
+        </kendo-grid-column>
+
+        <!-- Disabled -->
+        <kendo-grid-column field="disabled" title="Disabled" width="120">
+          <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+            <input type="checkbox" [(ngModel)]="dataItem.disabled" name="Disabled" />
+          </ng-template>
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.disabled" disabled />
+          </ng-template>
+        </kendo-grid-column>
+
+        <!-- Actions -->
+        <kendo-grid-command-column title="Actions" width="130">
+          <ng-template kendoGridCellTemplate let-isNew="isNew">
+            <button kendoGridSaveCommand>{{ isNew ? 'Add' : 'Update' }}</button>
+            <button kendoGridEditCommand>Edit</button>
+            <button kendoGridRemoveCommand [primary]="true">Remove</button>
+            <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
+          </ng-template>
+        </kendo-grid-command-column>
+
+      </kendo-grid>
+    </form>
+
+    <div *ngIf="loading" class="k-i-loading"></div>
+
+  </div>
+</app-list-management>

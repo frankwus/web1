@@ -1,0 +1,70 @@
+
+<form [formGroup]="form" novalidate>
+  <table width="100%" formGroupName="header" novalidate>
+    <tr>
+      <td> <label>job Title</label><input formControlName="jobTitle" /></td>
+      <td>
+        <input formControlName="id" />
+        facility<input formControlName="facility" />
+        <input type="button" (click)="onFacility()" />
+      </td>
+      <td>
+        <label>equipmentType</label><select formControlName="equipmentType" (change)="onChange()">
+          <option *ngFor="let equipmentType of equipmentTypes" [value]="equipmentType.id">
+            {{equipmentType.name}}
+          </option>
+        </select>
+      </td>
+      <td>
+        <select formControlName="equipmentMake">
+          <option *ngFor="let equipmentMake of equipmentMakes" [value]="equipmentMake.id">
+            {{equipmentMake.name}}
+          </option>
+        </select>
+      </td>
+
+    </tr>
+  </table>
+  <table width="100%" border="1">
+    <div formArrayName="jobSteps">
+      <tr *ngFor="let jobStep of jobStepFormArray.controls; let i=index; " [formGroupName]="i">
+        <td nowrap>
+          <input type="button" value="Edit" (click)="onAction(jobStep.value, 'edit', i )" />
+          <input type="button" value="Insert" (click)="onAction(null, 'add', i )" />
+          <input type="button" value="Delete" (click)="onAction(null, 'delete', i )" />
+        </td>
+        <td>
+          <p *ngIf="jobStep.value.warning!=''"><img width="15" src="{{imgUrl}}/warning.png" /> {{jobStep.value.warning}}</p>
+          <p *ngIf="jobStep.value.Caution!=''"><img width="15" src="{{imgUrl}}/Caution.png" />{{jobStep.value.Caution}}</p>
+          <p>{{jobStep.value.description}}</p>
+          <p>{{jobStep.value.note}}</p>
+        </td>
+        <td>
+          <button *ngIf="jobStep.value.photo!=''" (click)="jobStep.value.photo='';jobStep.value.note='' ">Delete</button>
+          <input type="file" id="file" title="test" (change)="preview($event.target.files, i, $event)">
+          <img *ngIf="jobStep.value.photo!='' && jobStep.value.note==''" (click)="onImgClick( $event )" width="15" src="{{imgUrl}}/{{jobStep.value.photo}}" />
+          <!--<a *ngIf="jobStep.value.photo!='' && jobStep.value.note!=''" href="{{jobStep.value.photo}}" target="_blank">-->
+            <img *ngIf="jobStep.value.photo!='' && jobStep.value.note!=''" (click)="onImgClick( $event )"  width="15" src="{{jobStep.value.photo}}" />
+
+        </td>
+        <td>
+          <input formControlName="Barrier" type="checkbox" />
+        </td>
+        <td hidden>
+          <input formControlName="id" />
+          <input formControlName="description" />
+          <input formControlName="warning" />
+          <input formControlName="Caution" />
+          <input formControlName="note" />
+          <input formControlName="photo" />
+        </td>
+      </tr>
+    </div>
+  </table>
+
+  <button (click)="onAdd()">Add</button>
+  <button type="submit" (click)="onSubmit()">Save</button>
+  <button (click)="onRefresh()">Refresh</button>
+  <img [hidden]="!showImage" (click)="showImage=false" #imgTemplate style="position:absolute;top:0;left:0" />
+
+</form>

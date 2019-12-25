@@ -1,0 +1,22 @@
+﻿
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="http://kendo.cdn.telerik.com/2016.3.1028/js/kendo.all.min.js"></script>
+</head>
+<input type="checkbox" onchange="onChange()" />UAT
+<script>
+    $(document).ready(function () {
+
+    });
+    function onChange() {
+         $.ajax({
+            url: "home/ToggleDataSource",
+            dataType: "jsonp",
+            success: function(result) {
+                console.log (result);
+            },
+            error: function(result) {
+                console.log(result);
+            }
+        });
+    }
+</script>

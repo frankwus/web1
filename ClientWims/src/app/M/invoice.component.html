@@ -1,0 +1,139 @@
+
+  <form [formGroup]="form" disabled>
+    <button (click)="onAdd()">Add</button>
+    <button id="Save" (click)="onSave()">Save</button>
+    <button [hidden]="form.invalid" type="submit" (click)="onSubmit()">Submit</button>
+    <button (click)="onRefresh()">Refresh</button>
+    <button>Refresh</button>
+
+
+    <table width="100%" [formGroup]="form" novalidate>
+      <tr>
+        <td>
+          <label>Client</label>
+          <select formControlName="client" (change)="onClientChange($event )">
+            <option *ngFor="let client of clients" [value]="client.id">
+              {{client.name }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <label>BU</label>
+          <select formControlName="bu" (change)="onBuChange($event)">
+            <option *ngFor="let bu of bus" [value]="bu.id">
+              {{bu.name }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <label>Account</label>
+          <select formControlName="account" (change)="onChange($event)">
+            <option *ngFor="let account of accounts" [value]="account.id">
+              {{account.name }}
+            </option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Client</label>
+          <input [matDatepicker]="myDatepicker">
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </td>
+      </tr>
+    </table>
+
+    <!--<div style="margin: 10px">
+    <div class="card">
+      <div class="card-block k-form">
+        <fieldset>
+          <legend>Binding types</legend>
+          <div class="k-form-field">
+            <span>Bind the data to:</span>
+            <input [(ngModel)]="bindingType" type="radio" name="mode" id="array" value="array" class="k-radio"
+                   (change)="changeBindingType($event)">
+            <label class="k-radio-label" for="array">Array object</label>
+            <input [(ngModel)]="bindingType" type="radio" name="mode" id="gridDataResult" value="gridDataResult" class="k-radio"
+                   (change)="changeBindingType($event)">
+            <label class="k-radio-label" for="gridDataResult">GridDataResult object</label>
+            <input [(ngModel)]="bindingType" type="radio" name="mode" id="async" value="async" class="k-radio"
+                   (change)="changeBindingType($event)">
+            <label class="k-radio-label" for="async">Asynchronous source</label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>-->
+    <!--<kendo-grid [data]="gridView"
+              [pageSize]="pageSize"
+              [skip]="skip"
+              [pageable]="true"
+              [height]="400"
+              (pageChange)="pageChange($event)">
+  </kendo-grid>-->
+    <!--<kendo-grid [data]="gridData" [height]="550"
+              [pageSize]="state.take" [skip]="state.skip"
+              [sort]="state.sort"
+              [filter]="state.filter"
+              [sortable]="true"
+              [pageable]="true" [filterable]="true"
+              (dataStateChange)="dataStateChange($event)" (edit)="editHandler($event)">
+    <kendo-grid-column field="id" data- title="ID" width="40" filter="numeric">
+    </kendo-grid-column>
+    <kendo-grid-column field="email" data- title="email" width="40">
+      <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+        <input [(ngModel)]="dataItem.email" name="email" class="k-textbox" required />
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <input type="checkbox" [checked]="dataItem.Discontinued" disabled />
+      </ng-template>
+
+    </kendo-grid-column>
+
+    <kendo-grid-command-column title="Actions" width="130">
+      <ng-template kendoGridCellTemplate let-isNew="isNew">
+        <button kendoGridEditCommand [primary]="true">Edit</button>
+
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>-->
+    <kendo-grid [data]="gridData"
+                [height]="533">
+      <kendo-grid-column field="ProductID" title="Product Name">
+
+      </kendo-grid-column>
+
+      <kendo-grid-command-column title="command" width="220">
+        <ng-template kendoGridCellTemplate let-isNew="isNew">
+          <button kendoGridEditCommand type="button" [primary]="true">Edit</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+    <!--<kendo-grid [data]="gridData1"
+              [height]="533"
+              [pageSize]="gridState.take" [skip]="gridState.skip" [sort]="gridState.sort"
+              [pageable]="true" [sortable]="true"
+              (dataStateChange)="onStateChange($event)"
+              (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
+              (save)="saveHandler($event)" (remove)="removeHandler($event)"
+              (add)="addHandler($event, myForm)"
+              [navigable]="true">
+    <ng-template kendoGridToolbarTemplate>
+      <button kendoGridAddCommand type="button">Add new</button>
+    </ng-template>
+    <kendo-grid-column field="ProductID" title="Product Name">
+
+    </kendo-grid-column>
+
+    <kendo-grid-command-column title="command" width="220">
+      <ng-template kendoGridCellTemplate let-isNew="isNew">
+        <button kendoGridEditCommand type="button" [primary]="true">Edit</button>
+        <button kendoGridRemoveCommand type="button">Remove</button>
+
+      </ng-template>
+    </kendo-grid-command-column>
+  </kendo-grid>-->
+
+  </form>

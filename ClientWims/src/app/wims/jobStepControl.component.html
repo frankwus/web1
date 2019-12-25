@@ -1,0 +1,45 @@
+<!--<div *ngFor="let user of users.controls">{{ user.value.id }}</div>-->
+
+<div *ngIf="form && isDone" [formGroup]="form">
+  <table width="100%" border="1" formArrayName="jobSteps" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <tr class="example-box" cdkDrag *ngFor="let jobStep of users.controls; let i=index; " [formGroupName]="i">
+      <td nowrap>
+        <input type="button" value="Edit" (click)="onAction(jobStep.value, 'edit', i )" />
+        <input type="button" value="Insert" (click)="onAction(null, 'add', i )" />
+        <input type="button" value="Delete" (click)="onAction(null, 'delete', i )" />
+      </td>
+      <td>
+        <div *ngIf="jobStep.value.Warning!=''">
+          <table><tr><td><img width="15" src="{{imgUrl}}/Warning.jfif" /></td><td [innerHTML]="jobStep.value.Warning"></td></tr></table>
+        </div>
+        <div *ngIf="jobStep.value.Caution!=''">
+          <table><tr><td><img width="15" src="{{imgUrl}}/Caution.jfif" /></td><td [innerHTML]="jobStep.value.Caution"></td></tr></table>
+        </div>
+        <div [innerHTML]="jobStep.value.Description"></div>
+        <div [innerHTML]="jobStep.value.Note"></div>
+      </td>
+      <td>
+        <button *ngIf="jobStep.value.Photo!=''" (click)="jobStep.value.Photo='';jobStep.value.Note='' ">Delete</button>
+        <button (click)="onSelectPhoto($event )">Select</button>
+        <input hidden type="file" (change)="onFileChange($event, i )">
+        <img *ngIf="jobStep.value.Photo.split('.').pop().toLowerCase()=='png' " (click)="onImgClick( $event )" width="15" src="{{imgUrl}}/{{jobStep.value.Photo}}" />
+        <a *ngIf="jobStep.value.Photo!='' " href="{{imgUrl}}/{{jobStep.value.Photo}}" target="_blank">View </a>
+
+      </td>
+      <td>
+        <input formControlName="Barrier" type="checkbox" />
+      </td>
+      <td hidden>
+        <input formControlName="id" />
+        <input formControlName="Description" />
+        <input formControlName="Warning" />
+        <input formControlName="Caution" />
+        <input formControlName="Note" />
+        <input formControlName="Photo" />
+      </td>
+    </tr>
+
+  </table>
+  <img [hidden]="!showImage" (click)="showImage=false" #imgTemplate style="position:absolute;top:0;left:0" />
+
+</div>

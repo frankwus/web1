@@ -1,0 +1,35 @@
+<!--<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+</div>-->
+
+
+
+<form [formGroup]="form" novalidate #f>
+  <button type="submit" (click)="onSubmit()">Save</button>
+  <table>
+    <tr>
+      <td>
+        <div class="card-body" cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+          <input type="text" #text /><button (click)="onSearch()">Search</button>
+          <div  class="example-box" cdkDrag *ngFor="let r of pageOfItems  ">
+            <input (change)="onToggle(1, r.id, r.name, $event) " type="checkbox" id="{{r.id}}" />{{r.name}}
+          </div>
+        </div>
+        <div class="card-footer pb-0 pt-3">
+          <jw-pagination [items]="results" (changePage)="onChangePage($event)"></jw-pagination>
+        </div>
+      </td>
+      <td valign="top">
+        <div>
+          <div *ngFor="let r of data  ">
+            <input checked (change)="onToggle(0, r.id, r.name) " type="checkbox" id="{{r.id}}" />{{r.name}}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+
+</form>
+
+

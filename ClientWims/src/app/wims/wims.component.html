@@ -1,0 +1,23 @@
+test
+<form [formGroup]="form" disabled>
+  <button (click)="onAdd()">Add</button>
+  <button id="Save" (click)="onSave()">Save</button>
+  <button [hidden]="form.invalid" type="submit" (click)="onSubmit()">Submit</button>
+  <button (click)="onRefresh()">Refresh</button>
+  <button >Refresh</button>
+
+
+  <header1 formGroupName="header"></header1>
+
+  <div>  <jobStepControl [users]="users" [count]="count"></jobStepControl></div>
+
+  <table>
+    <tr>
+      <td>Equipment/Tools<button (click)="onWiTools($event )">Edit</button> </td>
+      <td>
+        <!--<span *ngFor="let r of wiTools.controls">{{r.value.name}}</span>-->
+      </td>
+    </tr>
+  </table>
+  <!--<jobStepControl [jobSteps]="jobStepFormArray"></jobStepControl>-->
+</form>

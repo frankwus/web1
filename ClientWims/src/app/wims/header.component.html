@@ -1,0 +1,28 @@
+test1
+  <table width="100%" [formGroup]="headerFormGroup" novalidate>
+    test
+    <tr>
+      <td> <label>job Title</label><input formControlName="jobTitle" /></td>
+      <td>
+        <input formControlName="id" />
+        facility<input formControlName="facility" />
+        <input type="button" (click)="onFacility()" />
+      </td>
+      <td>
+        <label>equipmentType</label><select formControlName="equipmentType" (change)="onChange()">
+          <option *ngFor="let equipmentType of equipmentTypes" [value]="equipmentType.id">
+            {{equipmentType.name}}
+          </option>
+        </select>
+      </td>
+      <td>
+        <select formControlName="equipmentMake">
+          <option *ngFor="let equipmentMake of equipmentMakes" [value]="equipmentMake.id">
+            {{equipmentMake.name}}
+          </option>
+        </select>
+      </td>
+
+    </tr>
+  </table>
+
