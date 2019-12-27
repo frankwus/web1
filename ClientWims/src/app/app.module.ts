@@ -58,7 +58,7 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
 
 import { invoiceComponent } from './m/invoice.component';
 import { winvoiceComponent } from './m/winvoice.component';
-import { GridModule } from '@progress/kendo-angular-grid';
+import { GridModule, ExcelModule } from '@progress/kendo-angular-grid';
 import { EditService } from './m/edit.service';
 
 @Injectable()
@@ -114,7 +114,7 @@ export class CustomInterceptor implements HttpInterceptor  {
         MatDatepickerModule,
       MatMomentDateModule,
         TreeModule.forRoot(), 
-        ReactiveFormsModule, GridModule
+        ReactiveFormsModule, GridModule, ExcelModule 
         , FormsModule      
     ],
     providers: [

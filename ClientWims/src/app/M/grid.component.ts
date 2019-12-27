@@ -29,11 +29,11 @@ import { GridDataResult, GridModule, ExcelModule , DataStateChangeEvent } from '
 import { map } from 'rxjs/operators';
 import { setTime } from '@progress/kendo-angular-dateinputs/dist/es2015/util';
 @Component({
-    selector: 'invoice',
-    templateUrl: './invoice.component.html'
+    selector: 'myGrid',
+    templateUrl: './grid.component.html'
     , changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class invoiceComponent implements OnInit {
+export class gridComponent implements OnInit {
     form;
     myForm
     isDateDone = false
