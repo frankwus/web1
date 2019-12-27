@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as XLSX from 'ts-xlsx';
 import { ExportService } from './excelService'
 import * as ts from "typescript";
-import { winvoiceComponent } from './winvoice.component';
+import { gridComponent } from './grid.component';
 import { tap } from 'rxjs/operators';
 import * as $ from 'jquery'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -33,7 +33,7 @@ import { setTime } from '@progress/kendo-angular-dateinputs/dist/es2015/util';
     templateUrl: './invoice.component.html'
     , changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class invoiceComponent implements OnInit {
+export class invoiceComponent implements AfterViewInit {
     form;
     myForm
     isDateDone = false
@@ -45,7 +45,9 @@ export class invoiceComponent implements OnInit {
     bus: [any] = [{ Id: 0, BusinessUnitName: '' }]
     accounts
     //@ViewChild('imgTemplate', { static: false }) imgTemplate: ElementRef;
-    //@ViewChild('imgTemplate') imgTemplate; 
+    @ViewChild(gridComponent, { static: false }) gridComp: gridComponent;
+    @ViewChild('save', { static: false }) htmlSave: ElementRef; 
+
     subscription: Subscription = new Subscription();
     apiUrl: string = 'http://localhost/webApi1/api//home/'
     getForm() {
@@ -56,7 +58,7 @@ export class invoiceComponent implements OnInit {
     public columns: any[] //= [{ field: "ProductID" }, { field: "ProductName" }, { field: "QuantityPerUnit" }];
     public bindingType: String = 'array';
     public view: Observable<GridDataResult>;
-    public gridData1: any //= products;
+    
     public gridDataResult: GridDataResult // = { data: [], total: 1 };
 
     editedPPeOriginalState: GenericResource;
@@ -101,9 +103,20 @@ this.addValidator()
         else
             this.init()
         this.get('client', 'clients')
-        this.get('GetTransaction?id=0&buId=1110&pageSize=' + this.pageSize, 'gridData')
+        //this.get('GetTransaction?id=0&buId=1110&pageSize=' + this.pageSize, 'gridData')
         return
-        this.openDialog(winvoiceComponent, null, null, null)
+       // this.openDialog(winvoiceComponent, null, null, null)
+    }
+    ngAfterViewInit() {
+        this.initGrid()
+    }
+    initGrid() {
+        this.get('GetTransaction?id=0&buId=1110&pageSize=' + this.pageSize, null, function (data) {
+            console.log('initgrid', data)
+            this.gridComp.gridData = data
+            this.gridComp.ref.detectChanges()
+        }.bind(this) )
+
     }
     addValidator() {
         var arr=['name', 'iAccount']
@@ -255,20 +268,9 @@ this.addValidator()
     }
     onSubmit() {
         console.log(this.form.get('header').value)
-        console.log(this.gridData.data)
-        //return
-        //var data = new FormData();
-        //data.append('model', this.form.get('header').value);
-        //data.append('model1', this.gridData);
-        //this.http.post('/api/Employee/Save', ** data **, {
-        //    //withCredentials: false,
-        //    //transformRequest: angular.identity,
-        //    headers: {
-        //        'Content-Type': undefined
-        //    }
-        //}).success(function (resp) { });
-        //return
-        this.subscription.add(this.http.post(this.apiUrl + '/post', { header: this.form.get('header').value, grid: this.gridData.data }  ).pipe(tap(() => this.loading = false))
+        console.log(this.gridComp.gridData.data)
+
+        this.subscription.add(this.http.post(this.apiUrl + '/post', { header: this.form.get('header').value, grid: this.gridComp.gridData.data }  ).pipe(tap(() => this.loading = false))
             .subscribe(() => {
 
             }, err => alert(err.message)));
@@ -308,9 +310,10 @@ this.addValidator()
 
     saveHandler({ sender, rowIndex, dataItem, isNew }) {
         console.log(dataItem); 
-        isNew=false
-        if (true ) { // ADD
+        if (isNew)
             this.gridData.data.push(dataItem)
+        if (true ) { // ADD
+            
         } else { // UPDATE
             this.subscription.add(this.update(dataItem as GenericResource)
                 .subscribe(() => {
@@ -352,8 +355,7 @@ this.addValidator()
             .subscribe(data => this.exportService.exportExcel(data.data, 'customers') , err => alert(err.message), () => console.log('done')));        
     }
     test() {
-        var gridModel = $("#junk1").data("kendoGrid").dataSource.data();
-        console.log(gridModel);
+        this.htmlSave.nativeElement.text='test'
     }
 }
 class header {

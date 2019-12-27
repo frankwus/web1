@@ -57,9 +57,10 @@ import { CKEditorModule } from 'ckeditor4-angular';
 import { JwPaginationComponent } from 'jw-angular-pagination';
 
 import { invoiceComponent } from './m/invoice.component';
-import { winvoiceComponent } from './m/winvoice.component';
+import { tabiComponent } from './m/tab.component';
 import { GridModule, ExcelModule } from '@progress/kendo-angular-grid';
 import { EditService } from './m/edit.service';
+import { gridComponent } from './m/grid.component';
 
 @Injectable()
 export class CustomInterceptor implements HttpInterceptor  {
@@ -86,7 +87,8 @@ export class CustomInterceptor implements HttpInterceptor  {
       , BirthYearValidatorDirective, CreditCardValidator, headerComponent, parentComponent, AddressEditorComponent
         , jobStepControlComponent, Parent1Component, Child1Component
         , invoiceComponent
-      , winvoiceComponent
+        , tabiComponent
+      , gridComponent
     ],
     imports: [
       BrowserModule,

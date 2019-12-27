@@ -79,7 +79,7 @@ export class gridComponent implements OnInit {
     constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private dialog: MatDialog, private location: Location, private exportService: ExportService
         , private route: ActivatedRoute, private router: Router, private http: HttpClient) {
         var url = window.location.href //  this.route.snapshot.paramMap.get('id')
-
+        return
         this.id = this.getParameterByName('id')
         console.log(this.id)
         //return 
@@ -308,9 +308,10 @@ this.addValidator()
 
     saveHandler({ sender, rowIndex, dataItem, isNew }) {
         console.log(dataItem); 
-        isNew=false
-        if (true ) { // ADD
+        if (isNew)
             this.gridData.data.push(dataItem)
+        if (true ) { // ADD
+            
         } else { // UPDATE
             this.subscription.add(this.update(dataItem as GenericResource)
                 .subscribe(() => {
@@ -347,6 +348,7 @@ this.addValidator()
         this.ref.detectChanges()
     }
     exportExcel() {
+        this.ref.detectChanges();return 
         var url = 'GetTransaction?id=0&buId=1110&pageSize=111111'
         this.subscription.add(this.http.get<any>(this.apiUrl + url, { withCredentials: true })
             .subscribe(data => this.exportService.exportExcel(data.data, 'customers') , err => alert(err.message), () => console.log('done')));        

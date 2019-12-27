@@ -1,8 +1,9 @@
+
 <input type="button" (click)="test()" />
 <form novalidate [formGroup]="form">
   <!--#myForm="ngForm">-->
   <button (click)="addHandler($event,myForm)">Add</button>
-  <button id="Save" [hidden]="form.invalid" (click)="onSave()">Save</button>
+  <button #save [hidden]="form.invalid" (click)="onSave()">Save</button>
   <button type="submit" (click)="onSubmit()">Submit</button>
   <button (click)="onRefresh()">Refresh</button>
   <button (click)="onClearFilter()">Clear Filter</button>
@@ -53,7 +54,8 @@
     </tr>
   </table>
 </form>
-<form novalidate #myForm="ngForm" [hidden]="this.form.get('header').value.iAccount==0">
+<myGrid></myGrid>
+<!--<form novalidate #myForm="ngForm" [hidden]="this.form.get('header').value.iAccount==0">
   <button (click)="exportExcel()">Export</button>
   <kendo-grid [data]="gridData" [height]="550" id="junk1"
               [pageSize]="state.take" [skip]="state.skip"
@@ -100,4 +102,4 @@
     </kendo-grid-command-column>
     <kendo-grid-excel fileName="Products.xlsx"></kendo-grid-excel>
   </kendo-grid>
-</form>
+</form>-->
