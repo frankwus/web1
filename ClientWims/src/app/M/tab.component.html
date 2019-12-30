@@ -1,12 +1,18 @@
-<mat-tab-group>
+<!--<mat-tab-group>
   <mat-tab label="First">
     <ng-template matTabContent>
-      The First Content
+      <myGrid></myGrid>
     </ng-template>
   </mat-tab>
   <mat-tab label="Second">
     <ng-template matTabContent>
-      The Second Content
+     
     </ng-template>
   </mat-tab>
-</mat-tab-group>
+</mat-tab-group>-->
+<span  *ngFor="let item of tabs; index as i; "><a href="#" (click)="onTab(i)" >{{item}}</a></span>
+
+<div  [hidden]="activeIndex!=0">
+  <myGrid></myGrid>
+</div>
+<div [hidden]="activeIndex!=1">testing </div>

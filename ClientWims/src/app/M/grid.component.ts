@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementR
 import * as XLSX from 'ts-xlsx';
 import { ExportService } from './excelService'
 import * as ts from "typescript";
-import { winvoiceComponent } from './winvoice.component';
 import { tap } from 'rxjs/operators';
 import * as $ from 'jquery'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -47,7 +46,7 @@ export class gridComponent implements OnInit {
     //@ViewChild('imgTemplate', { static: false }) imgTemplate: ElementRef;
     //@ViewChild('imgTemplate') imgTemplate; 
     subscription: Subscription = new Subscription();
-    apiUrl: string = 'http://localhost/webApi1/api//home/'
+    apiUrl: string = config.apiUrl+'/home/'
     getForm() {
         return this.form
     }
@@ -59,11 +58,11 @@ export class gridComponent implements OnInit {
     public gridData1: any //= products;
     public gridDataResult: GridDataResult // = { data: [], total: 1 };
 
-    editedPPeOriginalState: GenericResource;
+    editedPPeOriginalState;
     public gridData: any
     
     editedRowIndex: number;
-   // editedPPeOriginalState: GenericResource;
+   // editedPPeOriginalState;
     loading: boolean;
     pageSize = 2;
     skip = 0;
@@ -102,8 +101,6 @@ this.addValidator()
             this.init()
         this.get('client', 'clients')
         this.get('GetTransaction?id=0&buId=1110&pageSize=' + this.pageSize, 'gridData')
-        return
-        this.openDialog(winvoiceComponent, null, null, null)
     }
     addValidator() {
         var arr=['name', 'iAccount']
@@ -273,7 +270,7 @@ this.addValidator()
 
             }, err => alert(err.message)));
     }
-    update(equipment: GenericResource): Observable<any> {
+    update(equipment): Observable<any> {
         if (!equipment) { return; }
         this.loading = true;
         let headers = new Headers();
@@ -313,7 +310,7 @@ this.addValidator()
         if (true ) { // ADD
             
         } else { // UPDATE
-            this.subscription.add(this.update(dataItem as GenericResource)
+            this.subscription.add(this.update(dataItem )
                 .subscribe(() => {
                     this.closeEditor(sender, rowIndex);
                 }, err => alert(err.message)));
@@ -323,7 +320,7 @@ this.addValidator()
         this.editedPPeOriginalState = undefined;
     }
 
-    removeHandler(equipment: GenericResource) {
+    removeHandler(equipment) {
         if (confirm('Confirm delete equipment ' + equipment.id + '?')) {
             this.subscription.add(this.http.delete(this.apiUrl + '/delete?id='+ equipment.id)
                 .subscribe(

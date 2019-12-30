@@ -12,15 +12,25 @@
 </form>
 
 <script>
-    $(document).ready(function () {
-        var a = $('<a target=_blank href="http://localhost:81/Download/1293-41985.xlsx" >test</a>')
-        a.appendTo( $('form'))
-        a.trigger('click')
-        $("form").bind('ajax:complete', function() {
-
-         // tasks to do 
+    
 
 
-        });
-    })
+  $(document).ready(function () {
+return 
+    var t = test.bind1(this)
+    t()
+
+  });
+  function test() {
+      console.log('test', this , 'test1')
+  }
+  Function.prototype.bind1 = function (ctx) {
+    var fn = this;
+    console.log(ctx  )
+        return function () {
+            fn.apply(ctx, arguments);
+        };
+    };
+         var t = test
+    t()
 </script>

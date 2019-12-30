@@ -9,7 +9,8 @@ import {CourseComponent} from "./course/course.component";
 import {CourseResolver} from "./services/course.resolver";
 import { TvComponent } from './wims/tv.component';
 import { invoiceComponent } from './m/invoice.component';
-import { tabiComponent } from './m/tab.component';
+import { tabComponent } from './m/tab.component';
+import { LoginComponent } from './m/login.component';
 const routes: Routes = [
     {
     path: "wi/:id",
@@ -25,7 +26,11 @@ const routes: Routes = [
       component: invoiceComponent
     }, {
         path: "tab",
-        component: tabiComponent
+        component: tabComponent
+    }, {
+        path: "login",
+        component: LoginComponent
+
     },
   {
     path: "tv",

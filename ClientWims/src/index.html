@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<!--<script src="http://localhost/irma/js/jquery.js"></script>-->
+<script src="http://localhost/irma/js/jquery.js"></script>
 <!--<script src="http://localhost/emoc/js/ckeditor.js"></script>-->
 <head>
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
@@ -31,11 +31,26 @@
 </body>
 </html>
 <script>
-  //$(document).ready(function () {
+  window.config = { apiUrl: "http://localhost/webapi1/api/" };
+  //window.config = {apiUrl: "  http://localhost:50869/"};
 
-  //  ConfigSave()
 
-  //});
+  $(document).ready(function () {
+
+    var t = test.bind1(this)
+    t()
+
+  });
+  function test() {
+
+  }
+  Function.prototype.bind1 = function (ctx) {
+    var fn = this;
+    console.log(this )
+        return function () {
+            fn.apply(ctx, arguments);
+        };
+    };
   function ConfigSave() {
     document.onkeydown = function () {
       var k = event.keyCode

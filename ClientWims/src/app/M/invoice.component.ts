@@ -49,7 +49,7 @@ export class invoiceComponent implements AfterViewInit {
     @ViewChild('save', { static: false }) htmlSave: ElementRef; 
 
     subscription: Subscription = new Subscription();
-    apiUrl: string = 'http://localhost/webApi1/api//home/'
+    apiUrl: string = config.apiUrl+'/home/'
     getForm() {
         return this.form
     }
@@ -61,11 +61,11 @@ export class invoiceComponent implements AfterViewInit {
     
     public gridDataResult: GridDataResult // = { data: [], total: 1 };
 
-    editedPPeOriginalState: GenericResource;
+    editedPPeOriginalState;
     public gridData: any
     
     editedRowIndex: number;
-   // editedPPeOriginalState: GenericResource;
+   // editedPPeOriginalState;
     loading: boolean;
     pageSize = 2;
     skip = 0;
@@ -80,19 +80,22 @@ export class invoiceComponent implements AfterViewInit {
     };
     constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private dialog: MatDialog, private location: Location, private exportService: ExportService
         , private route: ActivatedRoute, private router: Router, private http: HttpClient) {
-        var url = window.location.href //  this.route.snapshot.paramMap.get('id')
 
         this.id = this.getParameterByName('id')
-        console.log(this.id)
-        //return 
-        //if (this.id == null)
-        //    this.id='0'
+
         this.form = this.fb.group({
             header: this.fb.group(new header()),
             wiTools: this.fb.array([])
            // , test: new FormControl('fds' ) //, [Validators.required, Validators.minLength(5)])
         });
-this.addValidator()
+        this.addValidator()
+       
+        this.get('client', 'clients')
+        this.refreshHeader()
+        return
+       // this.openDialog(winvoiceComponent, null, null, null)
+    }
+    refreshHeader() {
         if (this.id != '0')
             this.get('get/' + this.id, null, function (data) {
                 console.log(data)
@@ -102,22 +105,18 @@ this.addValidator()
             )
         else
             this.init()
-        this.get('client', 'clients')
-        //this.get('GetTransaction?id=0&buId=1110&pageSize=' + this.pageSize, 'gridData')
-        return
-       // this.openDialog(winvoiceComponent, null, null, null)
     }
     ngAfterViewInit() {
         this.initGrid()
     }
     initGrid() {
         this.get('GetTransaction?id=0&buId=1110&pageSize=' + this.pageSize, null, function (data) {
-            console.log('initgrid', data)
+            console.log('initgrid', this )
             this.gridComp.gridData = data
             this.gridComp.ref.detectChanges()
-        }.bind(this) )
-
+        }.bind(this))
     }
+
     addValidator() {
         var arr=['name', 'iAccount']
         for (var i in arr) {
@@ -272,10 +271,11 @@ this.addValidator()
 
         this.subscription.add(this.http.post(this.apiUrl + '/post', { header: this.form.get('header').value, grid: this.gridComp.gridData.data }  ).pipe(tap(() => this.loading = false))
             .subscribe(() => {
-
+                this.initGrid()
+                this.refreshHeader()
             }, err => alert(err.message)));
     }
-    update(equipment: GenericResource): Observable<any> {
+    update(equipment): Observable<any> {
         if (!equipment) { return; }
         this.loading = true;
         let headers = new Headers();
@@ -315,7 +315,7 @@ this.addValidator()
         if (true ) { // ADD
             
         } else { // UPDATE
-            this.subscription.add(this.update(dataItem as GenericResource)
+            this.subscription.add(this.update(dataItem )
                 .subscribe(() => {
                     this.closeEditor(sender, rowIndex);
                 }, err => alert(err.message)));
@@ -325,7 +325,7 @@ this.addValidator()
         this.editedPPeOriginalState = undefined;
     }
 
-    removeHandler(equipment: GenericResource) {
+    removeHandler(equipment) {
         if (confirm('Confirm delete equipment ' + equipment.id + '?')) {
             this.subscription.add(this.http.delete(this.apiUrl + '/delete?id='+ equipment.id)
                 .subscribe(
