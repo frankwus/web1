@@ -18,9 +18,9 @@
 
     <kendo-grid-column field="id" data- title="ID" width="40" filter="numeric">
     </kendo-grid-column>
-    <kendo-grid-column field="UserShortName" data- title="UserShortName" width="40">
+    <kendo-grid-column field="userShortName" data- title="UserShortName" width="40">
       <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-        <input [(ngModel)]="dataItem.UserShortName" name="UserShortName" class="k-textbox" required />
+        <input [(ngModel)]="dataItem.userShortName" name="UserShortName" class="k-textbox" required />
       </ng-template>
     </kendo-grid-column>
     <kendo-grid-column field="email" data- title="email" width="40">
@@ -44,7 +44,6 @@
         <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
       </ng-template>
     </kendo-grid-command-column>
-    <kendo-grid-excel fileName="Products.xlsx"></kendo-grid-excel>
   </kendo-grid>
 
 </form>

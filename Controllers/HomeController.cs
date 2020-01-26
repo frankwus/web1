@@ -22,8 +22,72 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Reflection; 
 namespace RiskNet.Admin.Controllers {
+    [AttributeUsage(AttributeTargets.All)]
+    public class CustomAttribute : Attribute {
 
+        private string text;
+
+        public CustomAttribute(string text) {
+
+            this.Text = text;
+
+        }
+
+        public string Text {
+
+            get {
+
+                return this.text;
+
+            }
+
+            set {
+
+                this.text = value;
+
+            }
+
+        }
+
+    }
+
+    [AttributeUsage(AttributeTargets.All)]
+    public class MyAttribute : Attribute {
+
+        // Provides name of the member 
+        private string name;
+
+        // Provides description of the member 
+        private string action;
+
+        // Constructor 
+        public MyAttribute(string name, string action) {
+            this.name = name;
+            this.action = action;
+        }
+
+        // property to get name 
+        public string Name {
+            get { return name; }
+        }
+
+        // property to get description 
+        public string Action {
+            get { return action; }
+        }
+    }
+    public class StoreIpAddressAttribute : ActionFilterAttribute {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            int i = 1; 
+        }
+    }
+    [CustomAttribute("Hello World...")]
+    [MyAttribute("Modifier", "Assigns the Student Details")]
     public partial class HomeController : Controller {
+        public string test() {
+            return "test"; 
+        }
         [HttpGet]
         public System.Web.Http.Results.JsonResult<DataSourceResult> GetTransaction( [DataSourceRequest]DataSourceRequest request) {
           
@@ -31,48 +95,54 @@ namespace RiskNet.Admin.Controllers {
             return null; //  var result = Json(query.ToDataSourceResult(request));
                          // return result;
         }
-        public string test1(int id=0)  {
-         //   using (new Impersonator("fwang", "mobius", "Yibing9!")) {
+        public string CreatePdfFromExcel (int id=0)  {
+            try {
                 string workbookPath = @"C:\Users\fwang\source\Workspaces\Workspace\RiskNet\Dashboard\DashboardBranch\Presentation\Nop.Web\ExportPdfFiles\Temp";
-            var directory = new DirectoryInfo(workbookPath);
-            if (id !=0 ) {
-                foreach (FileInfo myFile in directory.GetFiles()) {
-                    try {
-                        myFile.Delete();
-                    }catch(Exception ex) {
+                var directory = new DirectoryInfo(workbookPath);
+                if (id != 0) {
+                    foreach (FileInfo myFile in directory.GetFiles()) {
+                        try {
+                            myFile.Delete();
+                        } catch (Exception ex) {
 
+                        }
+                    }
+                    return "";
+                }
+                foreach (FileInfo myFile in directory.GetFiles("*.xlsx").OrderByDescending(f => f.LastWriteTime)) {
+                    using (new Impersonator("fwang", "mobius", "Yibing9!")) {
+
+                        Microsoft.Office.Interop.Excel.Application excelApplication;
+                        Microsoft.Office.Interop.Excel.Workbook excelWorkbook;
+
+                        excelApplication = new Microsoft.Office.Interop.Excel.Application();
+                        excelApplication.ScreenUpdating = false;
+                        excelApplication.DisplayAlerts = false;
+
+                        excelWorkbook = excelApplication.Workbooks.Open(myFile.FullName);
+
+                        Microsoft.Office.Interop.Excel.Worksheet ws = excelWorkbook.Sheets[1];
+
+                        ws.PageSetup.Zoom = false;
+                        ws.PageSetup.FitToPagesTall = false;
+                        ws.PageSetup.FitToPagesWide = 1;
+                        try {
+                            excelWorkbook.ExportAsFixedFormat(Microsoft.Office.Interop.Excel.XlFixedFormatType.xlTypePDF, myFile.FullName + Guid.NewGuid().ToString() + ".pdf");
+                        } catch (System.Exception ex) {
+
+                        } finally {
+                            excelWorkbook.Close();
+                            excelApplication.Quit();
+
+                            excelApplication = null;
+                            excelWorkbook = null;
+                        }
                     }
                 }
-                return ""; 
+            }catch(Exception ex) {
+                string s= ex.Message + " " + ex.StackTrace;
+                return s; 
             }
-            foreach (FileInfo myFile in directory.GetFiles("*.xlsx").OrderByDescending(f => f.LastWriteTime)) {
-                Microsoft.Office.Interop.Excel.Application excelApplication;
-                Microsoft.Office.Interop.Excel.Workbook excelWorkbook;
-
-                excelApplication = new Microsoft.Office.Interop.Excel.Application();
-                excelApplication.ScreenUpdating = false;
-                excelApplication.DisplayAlerts = false;
-
-                excelWorkbook = excelApplication.Workbooks.Open(myFile.FullName);
-
-                Microsoft.Office.Interop.Excel.Worksheet ws = excelWorkbook.Sheets[1];
-
-                ws.PageSetup.Zoom = false;
-                ws.PageSetup.FitToPagesTall = false;
-                ws.PageSetup.FitToPagesWide = 1;
-                try {
-                    excelWorkbook.ExportAsFixedFormat(Microsoft.Office.Interop.Excel.XlFixedFormatType.xlTypePDF, myFile.FullName + Guid.NewGuid().ToString() + ".pdf");
-                } catch (System.Exception ex) {
-
-                } finally {
-                    excelWorkbook.Close();
-                    excelApplication.Quit();
-
-                    excelApplication = null;
-                    excelWorkbook = null;
-                }
-            }
-          //  }
             return "test"; 
             MySimpleClass o = new MySimpleClass();
             MySimpleClass o2 = new MySimpleClass();
@@ -122,36 +192,26 @@ namespace RiskNet.Admin.Controllers {
             }
             return null;
         }
-        public ActionResult Index( ) {
+        [CustomAttribute("Hello World...")]
+        [MyAttribute("Modifier", "Assigns the Student Details")]
+        public ActionResult Index( )
+        {
+            return View();             
+        }
+        public string GetFairValueList() {
             string con = "user id=sa;password=nq!Cr1ApQY!!!mQ;Data Source=uat.mobiusrisknet.com ;  Initial Catalog=RiskNetSQL_DashBoard";
             con = @"user id=sa;password=nq!Cr1ApQY!!!mQ;Data Source=.\mssqlserver02 ;  Initial Catalog=RiskNetSQL_DashBoard";
             DataAccessor da = new DataAccessor(con);
-            DateTime dt = DateTime.Now; 
-           DataSet ds= da.GetDataSet("sp_Mobius_GetMtmToPlanDataForDashBoard 1110, 1, '3/1/16', '12/1/25' ");
-            return Json( dt.ToLongTimeString()+" "+DateTime.Now.ToLongTimeString() , JsonRequestBehavior.AllowGet); 
-            CategoryViewModel c = new CategoryViewModel();
-            c.CategoryName = "cat";
-            c.CategoryID = 1;
-            ViewData["defaultCategory"] = c;
+            DateTime dt = DateTime.Now;
+            DataSet ds = da.GetDataSet("usp_pnl 1165, '12/1/19', '11/1/19', 1, 3, '', '' ");
 
-            List<CategoryViewModel> list = new List<CategoryViewModel>();
-            list.Add(c);
-            CategoryViewModel c1 = new CategoryViewModel();
-            c1.CategoryName = "cat2";
-            c1.CategoryID = 2;
-            list.Add(c1);
-
-            ViewData["categories"] = list;
-
-            this.test(); 
-            return View(); 
-        }
-        public string GetString() {
-            string[] list1 = Directory.GetFiles(@"C:\MobiusRiskNetKendoUI\bin", "*.*");
-            string[] list2 = Directory.GetFiles(@"c:\test1\bin", "*.*");
-            string s = string.Join(", ", list1.Except(list2));
-            string s1 = string.Join(", ", list2.Except(list1));
-            return (s + "__" + s1); 
+            ds.Tables[0].TableName = "Data";
+            ds.Tables[1].TableName = "Total";
+            string s = Newtonsoft.Json.JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
+            s = s.Replace("\r\n", "");
+            s = s.Replace(@"[    {      ""Column1"":", "");
+            s = s.Replace("}  ]}", @",""AggregateResults"":null,""Errors"":null}");
+            return s;            
         }
         [HttpPost]
         public ActionResult ToggleDataSource(string db) {
@@ -173,10 +233,7 @@ namespace RiskNet.Admin.Controllers {
             string s = db.Commit();
             return Json(s);
         }
-        void test() {
-
-        }
-
+ 
         public ActionResult EditingCustom_Read([DataSourceRequest] DataSourceRequest request) {
             return Json(Read().ToDataSourceResult(request), JsonRequestBehavior.AllowGet );
         }

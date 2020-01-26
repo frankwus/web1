@@ -8,14 +8,14 @@ import * as $ from 'jquery'
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Guid } from "guid-typescript";
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AboutComponent } from "../about/about.component";
 import { Form, FormsModule , FormBuilder, FormGroup, FormControl, FormArray, Validators  } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { Subscription, Observable } from 'rxjs';
 
 import { Location } from '@angular/common'
-
+//import 'rxjs/add/operator/filter'
 import {
     toDataSourceRequestString,
     translateDataSourceResultGroups,
@@ -28,6 +28,8 @@ import { GridDataResult, GridModule, ExcelModule , DataStateChangeEvent } from '
 //import 'rxjs/add/operator/map';
 import { map } from 'rxjs/operators';
 import { setTime } from '@progress/kendo-angular-dateinputs/dist/es2015/util';
+import * as jsdom from "jsdom";
+import * as jquery from "jquery";
 @Component({
     selector: 'invoice',
     templateUrl: './invoice.component.html'
@@ -35,12 +37,13 @@ import { setTime } from '@progress/kendo-angular-dateinputs/dist/es2015/util';
 })
 export class invoiceComponent implements AfterViewInit {
     form;
+    seriesData: number[] = [1, 2, 3, 5];
     myForm
     isDateDone = false
     formData = new FormData();
     showImage = false
     imgUrl = 'http://localhost/emoc/images'
-    id:string 
+    id:number 
     clients: [any] = [{ ID: 0, CompanyName: '' }]
     bus: [any] = [{ Id: 0, BusinessUnitName: '' }]
     accounts
@@ -79,24 +82,29 @@ export class invoiceComponent implements AfterViewInit {
         take: 10
     };
     constructor(private fb: FormBuilder, private ref: ChangeDetectorRef, private dialog: MatDialog, private location: Location, private exportService: ExportService
-        , private route: ActivatedRoute, private router: Router, private http: HttpClient) {
-
-        this.id = this.getParameterByName('id')
-
-        this.form = this.fb.group({
-            header: this.fb.group(new header()),
-            wiTools: this.fb.array([])
-           // , test: new FormControl('fds' ) //, [Validators.required, Validators.minLength(5)])
+        , private route: ActivatedRoute, private router: Router, private http: HttpClient) {     
+        this.id = this.route.snapshot.params.id
+        let header
+        $.ajax({ url: this.apiUrl + 'get/' + this.id, async: false, dataType :'json' }).done(data => {
+            header = ( data)[0]
+            console.log('header', header )
         });
-        this.addValidator()
+        console.log('test')
+        
+        this.form = this.fb.group({
+            header: this.fb.group(header),
+            wiTools: this.fb.array([])
+        });
+       // this.addValidator()
        
         this.get('client', 'clients')
         this.refreshHeader()
         return
        // this.openDialog(winvoiceComponent, null, null, null)
     }
+
     refreshHeader() {
-        if (this.id != '0')
+        if (this.id != 0 )
             this.get('get/' + this.id, null, function (data) {
                 console.log(data)
                 this.form.get('header').setValue(data[0])
@@ -146,6 +154,7 @@ export class invoiceComponent implements AfterViewInit {
     }
     get(url, name, fn=null) {
         this.getData(url, function (data) {
+            console.log('get', data )
             if (data == null )
                 return 
             var p = data[0]
@@ -256,11 +265,8 @@ export class invoiceComponent implements AfterViewInit {
             .pipe(
                 map(({ data, total/*, aggregateResults*/ }: GridDataResult) => // Process the response
                     (<GridDataResult>{
-                        // If there are groups, convert them to a compatible format 
                         data: data,
                         total: total,
-                        // Convert the aggregates if such exist
-                        //aggregateResult: translateAggregateResults(aggregateResults)
                     })
                 )
             )
@@ -268,8 +274,7 @@ export class invoiceComponent implements AfterViewInit {
     onSubmit() {
         console.log(this.form.get('header').value)
         console.log(this.gridComp.gridData.data)
-
-        this.subscription.add(this.http.post(this.apiUrl + '/post', { header: this.form.get('header').value, grid: this.gridComp.gridData.data }  ).pipe(tap(() => this.loading = false))
+        this.subscription.add(this.http.post(this.apiUrl + 'post', { header: this.form.get('header').value, grid: this.gridComp.gridData.data }  ).pipe(tap(() => this.loading = false))
             .subscribe(() => {
                 this.initGrid()
                 this.refreshHeader()
@@ -280,7 +285,7 @@ export class invoiceComponent implements AfterViewInit {
         this.loading = true;
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(this.apiUrl + '/post2',   equipment )
+        return this.http.post(this.apiUrl + 'post2',   equipment )
             .pipe(tap(() => this.loading = false));
     }
 
@@ -358,7 +363,7 @@ export class invoiceComponent implements AfterViewInit {
         this.htmlSave.nativeElement.text='test'
     }
 }
-class header {
+class header{
     id: number = 0
     clientId: number=0
     buId: number = 0

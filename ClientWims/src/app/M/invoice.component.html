@@ -31,15 +31,19 @@
         </select>
       </td>
       <td>
+        <label>name1</label>
+        <input formControlName="name1"  style="width:100px">
+      </td>
+      <td>
         <label>Account</label>
         <select formControlName="iAccount" id="account" name="account">
-          <option *ngFor="let account of accounts" [value]="account.id">
+          <option *ngFor="let account of accounts" [ngValue]="account.id">
             {{account.name }}
           </option>
         </select>
-        <div class="form-control-feedback" *ngIf="iAccount !=null && iAccount.invalid">
-          Field is invalid
-        </div>
+        <!--<div class="form-control-feedback" *ngIf="IAccount !=null && IAccount.invalid">
+      Field is invalid
+    </div>-->
       </td>
     </tr>
     <tr>
@@ -54,6 +58,7 @@
     </tr>
   </table>
 </form>
+
 <myGrid></myGrid>
 <!--<form novalidate #myForm="ngForm" [hidden]="this.form.get('header').value.iAccount==0">
   <button (click)="exportExcel()">Export</button>

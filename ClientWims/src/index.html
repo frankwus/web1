@@ -1,7 +1,5 @@
 <!doctype html>
 <html lang="en">
-<script src="http://localhost/irma/js/jquery.js"></script>
-<!--<script src="http://localhost/emoc/js/ckeditor.js"></script>-->
 <head>
   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
   <link type="text/css" rel="stylesheet" href="http://localhost/web1/scripts/angular/styles.css">
@@ -32,25 +30,18 @@
 </html>
 <script>
   window.config = { apiUrl: "http://localhost/webapi1/api/" };
-  //window.config = {apiUrl: "  http://localhost:50869/"};
+  window.config = { apiUrl: "http://localhost:50869/" };
+  window.config = { apiUrl: "http://localhost/core1" };
+  window.config = {apiUrl: "http://localhost:83"};
 
 
-  $(document).ready(function () {
+  //$(document).ready(function () {
 
-    var t = test.bind1(this)
-    t()
 
-  });
-  function test() {
+  //  t()
 
-  }
-  Function.prototype.bind1 = function (ctx) {
-    var fn = this;
-    console.log(this )
-        return function () {
-            fn.apply(ctx, arguments);
-        };
-    };
+  //});
+
   function ConfigSave() {
     document.onkeydown = function () {
       var k = event.keyCode

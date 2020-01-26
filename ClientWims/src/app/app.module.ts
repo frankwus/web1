@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { TreeModule } from 'angular-tree-component';
+import { MenuModule } from '@progress/kendo-angular-menu';
+import { GridModule } from '@progress/kendo-angular-grid';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
@@ -58,10 +60,11 @@ import { JwPaginationComponent } from 'jw-angular-pagination';
 
 import { invoiceComponent } from './m/invoice.component';
 import { tabComponent } from './m/tab.component';
-import { GridModule, ExcelModule } from '@progress/kendo-angular-grid';
 import { gridComponent } from './m/grid.component';
 import { LoginComponent } from './m/login.component';
-
+import { pnlComponent } from './m/pnl.component';
+import { NotificationModule } from '@progress/kendo-angular-notification';
+import { NotificationService } from './m/NotificationService';
 @Injectable()
 export class CustomInterceptor implements HttpInterceptor  {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -89,7 +92,8 @@ export class CustomInterceptor implements HttpInterceptor  {
         , invoiceComponent
         , tabComponent
         , gridComponent
-      , LoginComponent
+        , LoginComponent
+      , pnlComponent
     ],
     imports: [
       BrowserModule,
@@ -117,11 +121,13 @@ export class CustomInterceptor implements HttpInterceptor  {
         MatDatepickerModule,
       MatMomentDateModule,
         TreeModule.forRoot(), 
-        ReactiveFormsModule, GridModule, ExcelModule 
-        , FormsModule      
+        ReactiveFormsModule, GridModule
+        //, ExcelModule 
+        , FormsModule, MenuModule, NotificationModule      
     ],
     providers: [
         CoursesService,
+        NotificationService, 
       CourseResolver,
       {
         provide: HTTP_INTERCEPTORS,

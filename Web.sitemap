@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap>
+  <siteMapNode title="Home" controller="Home" action="Overview">
+    <siteMapNode title="Grid">
+      <siteMapNode controller="grid" action="index" title="First Look (Razor)" area="razor"/>
+      <siteMapNode controller="grid" action="index" title="First Look (ASPX)" area="aspx"/>
+    </siteMapNode>
+    <siteMapNode title="Menu">
+      <siteMapNode controller="menu" action="index" title="First Look (Razor)" area="razor"/>
+      <siteMapNode controller="menu" action="index" title="First Look (ASPX)" area="aspx"/>
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

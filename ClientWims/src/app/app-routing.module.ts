@@ -11,19 +11,22 @@ import { TvComponent } from './wims/tv.component';
 import { invoiceComponent } from './m/invoice.component';
 import { tabComponent } from './m/tab.component';
 import { LoginComponent } from './m/login.component';
+import { pnlComponent } from './m/pnl.component';
 const routes: Routes = [
     {
     path: "wi/:id",
         component: WimsComponent
 
-  },
-  {
+  },{
     path: "parent",
     component: parentComponent
 
     }, {
-      path: "invoice",
+      path: "invoice/:id",
       component: invoiceComponent
+    }, {
+        path: "pnl",
+        component: pnlComponent
     }, {
         path: "tab",
         component: tabComponent
@@ -57,7 +60,7 @@ const routes: Routes = [
         path: "**",
         redirectTo: '/'
     }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

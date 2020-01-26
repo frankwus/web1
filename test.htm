@@ -1,36 +1,37 @@
-﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<form method="post" action="http://localhost:81/Invoice/CreateSelectedInvoices">
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="http://demos.telerik.com/kendo-ui/Beta/web/grid/local-data.html">
+    <style>
+        body {
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <title></title>
+    <link href="http://cdn.kendostatic.com/2014.1.226/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2014.1.226/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="http://cdn.kendostatic.com/2014.1.226/js/jquery.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.1.226/js/kendo.all.min.js"></script>
+</head>
+<body>
+    <div id="example" class="k-content">
+        <button id="bindButton" onclick="ontest()">Click Me</button>
+        </button>
+        <textarea id="t1"></textarea>
+        <div id="grid"></div>
 
-    <br /> objInvoice[0][AccountName]: <input type="text" name="objInvoice[0][AccountName]" value="Flywheel Energy Marketing LLC" />
-    <br /> objInvoice[0][CounterPartyName]:<input type="text" name="objInvoice[0][CounterPartyName]" value="DTE Energy" />
-    <br /> prodPeriod: <input type="text" name="prodPeriod" value="11/1/2019 12:00:00 AM" />
-    <br /> bizUnitId: <input type="text" name="bizUnitId" value="1297" />
-    <br /> clientId: <input type="text" name="clientId" value="171" />
-    <br />  commodityId:<input type="text" name="commodityId" value="1" />
+        <script>
 
-    <input type="submit" />
-</form>
+            
+            $(document).ready(function () {
+                $('#t1').on('paste', function () {
 
-<script>
-    
+                })
+            });
+        </script>
+    </div>
 
 
-  $(document).ready(function () {
-return 
-    var t = test.bind1(this)
-    t()
-
-  });
-  function test() {
-      console.log('test', this , 'test1')
-  }
-  Function.prototype.bind1 = function (ctx) {
-    var fn = this;
-    console.log(ctx  )
-        return function () {
-            fn.apply(ctx, arguments);
-        };
-    };
-         var t = test
-    t()
-</script>
+</body>
+</html>
